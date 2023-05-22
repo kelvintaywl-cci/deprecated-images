@@ -10,7 +10,8 @@ jobs:
     steps:
       - run: |
           npm install << parameters.npm-package >>
-          npm list --depth=0
+      - run: |
+          npm ls phantomjs-prebuilt
 
 workflows:
   main:
