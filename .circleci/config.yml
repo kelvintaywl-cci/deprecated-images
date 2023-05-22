@@ -2,7 +2,22 @@ version: 2.1
 
 jobs:
   build:
+    parameters:
+      npm-package:
+        type: string
     docker:
       - image: circleci/node:14
     steps:
-      - checkout
+      - run: |
+          npm install << parameters.npm-package >>
+          npm list --depth=0
+
+workflows:
+  main:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              npm-package:
+                - phantomjs-prebuilt@2.1.16
+                - phantomjs-prebuilt@1.9.20
